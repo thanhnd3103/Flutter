@@ -1,4 +1,11 @@
+import 'package:cat_01_dice_mice/styled_text.dart';
 import 'package:flutter/material.dart';
+
+//final vs const difference
+//const is COMPILED TIME CONSTANT (lock in at compile)
+//final is... well... a result of some methods, and then lock in (only known when your code is executed)
+const startAlignment = Alignment.topLeft;
+const endAlignment = Alignment.bottomRight;
 
 class GradientContainer extends StatelessWidget {
   //GradientContainer({key}) : super(key: key);
@@ -9,22 +16,16 @@ class GradientContainer extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [
+          colors: const [
             Colors.purple,
             Colors.blue,
           ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+          begin: startAlignment,
+          end: endAlignment,
         ),
       ),
-      child: const Center(
-        child: Text(
-          "con mèo nằm trên nệm siêu béo đố m hot reload được đó :v",
-          style: TextStyle(
-            color: Colors.amber,
-            fontSize: 28,
-          ),
-        ),
+      child: Center(
+        child: StyledText(yourAwesomeText: "hole")
       ),
     );
   }
