@@ -25,7 +25,7 @@ class GradientContainer extends StatelessWidget {
         ),
       ),
       child: Center(
-        child: StyledText(yourAwesomeText: "hole")
+        child: StyledText("helo"),
       ),
     );
   }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-String mySuperAwesomeText = "Hello world";
-
 class StyledText extends StatelessWidget {
-  StyledText({super.key, required String yourAwesomeText}){
-    mySuperAwesomeText = yourAwesomeText;
-  }
+
+  //StyledText(String text, {super.key}) : mySuperAwesomeText = text; 
+  StyledText(this.mySuperAwesomeText, {super.key});
+  
+  //first use of final: CAN ONLY BE SET ONCE
+  final String mySuperAwesomeText;
 
   @override
   Widget build(BuildContext context) {
