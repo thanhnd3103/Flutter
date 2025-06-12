@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class StyledText extends StatelessWidget {
 
   //StyledText(String text, {super.key}) : mySuperAwesomeText = text; 
-  StyledText(this.mySuperAwesomeText, {super.key});
+  const StyledText(this.mySuperAwesomeText, {super.key});
   
   //first use of final: CAN ONLY BE SET ONCE
   final String mySuperAwesomeText;
