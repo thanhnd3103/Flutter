@@ -21,7 +21,7 @@ class GradientContainer extends StatelessWidget {
 
   final List<Color> colors;
 
-  void rollDice(){
+  void rollDice() {
     // This method can be used to implement the dice rolling logic
     // For now, it does nothing.
     print("Dice rolled!");
@@ -39,15 +39,28 @@ class GradientContainer extends StatelessWidget {
       ),
       child: Center(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
               'assets/images/dice-2.png',
               width: 200,
               height: 200,
             ),
+            const SizedBox(
+              height: 20,
+            ),
             TextButton(
               onPressed: rollDice,
-              child: const StyledText("Role the Mice Dice"),
+              style: TextButton.styleFrom(
+                // padding: const EdgeInsets.only(
+                //   top: 16,
+                // ),
+                foregroundColor: Colors.white,
+                textStyle: const TextStyle(
+                  fontSize: 28,
+                ),
+              ),
+              child: const Text("Roll the Mice Dice"),
             ),
           ],
         ),
