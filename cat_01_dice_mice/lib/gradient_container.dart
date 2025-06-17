@@ -1,3 +1,4 @@
+import 'package:cat_01_dice_mice/dice_rollder.dart';
 import 'package:cat_01_dice_mice/styled_text.dart';
 import 'package:flutter/material.dart';
 
@@ -18,10 +19,10 @@ class GradientContainer extends StatelessWidget {
   //_______________________________
   //GradientContainer({key}) : super(key: key);
   //_______________________________
-  
-  GradientContainer(this.colors, {super.key});
 
-  GradientContainer.purple({super.key})
+  const GradientContainer(this.colors, {super.key});
+
+  const GradientContainer.purple({super.key})
     : colors = const [
         Color.fromARGB(255, 19, 76, 183),
         Color.fromARGB(255, 194, 8, 194),
@@ -30,12 +31,6 @@ class GradientContainer extends StatelessWidget {
       ];
 
   final List<Color> colors;
-
-  String activeDiceImage = 'assets/images/dice-2.png';
-
-  void rollDice() {
-    activeDiceImage = 'assets/images/dices-4.png';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,32 +43,7 @@ class GradientContainer extends StatelessWidget {
         ),
       ),
       child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(
-              activeDiceImage,
-              width: 200,
-              height: 200,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            TextButton(
-              onPressed: rollDice,
-              style: TextButton.styleFrom(
-                // padding: const EdgeInsets.only(
-                //   top: 16,
-                // ),
-                foregroundColor: Colors.white,
-                textStyle: const TextStyle(
-                  fontSize: 28,
-                ),
-              ),
-              child: const Text("Roll the Mice Dice"),
-            ),
-          ],
-        ),
+        child: DiceRoller(),
       ),
     );
   }
