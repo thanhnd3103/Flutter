@@ -10,18 +10,11 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-
-  Widget? activeScreen;
-
-  @override
-  void initState() {
-    activeScreen = WelcomeContainer(switchScreen);
-    super.initState();
-  }
+  var activeScreen = 'welcome-container';
 
   void switchScreen() {
     setState(() {
-      activeScreen = const QuestionContainer();
+      activeScreen = 'question-container';
     });
   }
 
@@ -40,7 +33,12 @@ class _QuizState extends State<Quiz> {
             end: Alignment.bottomRight,
           ),
         ),
-        child: activeScreen,
+        //=========================================================
+        //Ternary expression to switch between screens
+        //=========================================================
+        child: activeScreen == 'welcome-container'
+            ? WelcomeContainer(switchScreen)
+            : const QuestionContainer(),
       ),
     ),
   );
