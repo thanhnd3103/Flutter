@@ -19,27 +19,33 @@ class _QuizState extends State<Quiz> {
   }
 
   @override
-  Widget build(context) => MaterialApp(
-    home: Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.blue.shade200,
-              Colors.blue.shade400,
-              Colors.blue.shade600,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+  Widget build(context) {
+    Widget screenWidget = WelcomeContainer(switchScreen);
+
+    if (activeScreen == 'question-container') {
+      screenWidget = const QuestionContainer();
+    }
+
+    return MaterialApp(
+      home: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.blue.shade200,
+                Colors.blue.shade400,
+                Colors.blue.shade600,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
           ),
+          //=========================================================
+          //Ternary expression to switch between screens
+          //=========================================================
+          child: screenWidget,
         ),
-        //=========================================================
-        //Ternary expression to switch between screens
-        //=========================================================
-        child: activeScreen == 'welcome-container'
-            ? WelcomeContainer(switchScreen)
-            : const QuestionContainer(),
       ),
-    ),
-  );
+    );
+  }
 }
