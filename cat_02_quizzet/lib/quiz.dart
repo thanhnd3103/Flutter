@@ -8,6 +8,28 @@ class Quiz extends StatefulWidget {
   @override
   State<Quiz> createState() => _QuizState();
 }
+//=========================================================
+// Extra shenanigans with lists and ternary expressions
+//=========================================================
+// final myList = [
+//   1,
+//   2,
+//   condition ? 3 : 4 // if condition is true, add 3, else add 4
+// ];
+//=========================================================
+// Can also be written as
+//==========================================================
+// final myList = [
+//   1,
+//   2,
+//   if (condition)
+//     3
+//   else
+//     4
+// ];
+//=========================================================
+//Or remove the else part
+//==========================================================
 
 class _QuizState extends State<Quiz> {
   var activeScreen = 'welcome-container';
