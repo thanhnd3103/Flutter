@@ -1,3 +1,4 @@
+import 'package:cat_02_quizzet/data/question_list.dart';
 import 'package:cat_02_quizzet/question_container.dart';
 import 'package:cat_02_quizzet/welcome_container.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +47,13 @@ class _QuizState extends State<Quiz> {
 
   void chooseAnswer(String answer) {
     selectedAnswers.add(answer);
+
+    if (selectedAnswers.length == questionList.length){
+      setState(() {
+        selectedAnswers.clear();
+        activeScreen = 'welcome-container';
+      });
+    }
   }
 
   @override

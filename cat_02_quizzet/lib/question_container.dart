@@ -18,11 +18,7 @@ class _QuestionContainerState extends State<QuestionContainer> {
   void nextQuestion(String selectedAnswer) {
     widget.onSelectAnswer(selectedAnswer);
     setState(() {
-      if (currentQuestionIndex < questionList.length - 1) {
-        currentQuestionIndex++;
-      } else {
-        currentQuestionIndex = 0;
-      }
+      currentQuestionIndex++;
     });
   }
 
