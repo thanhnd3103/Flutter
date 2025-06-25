@@ -49,11 +49,19 @@ class _QuizState extends State<Quiz> {
   void chooseAnswer(String answer) {
     selectedAnswers.add(answer);
 
-    if (selectedAnswers.length == questionList.length){
+    if (selectedAnswers.length == questionList.length) {
       setState(() {
         activeScreen = 'result-container';
       });
     }
+  }
+
+  void restartQuiz() {
+    print("helloworld");
+    setState(() {
+      selectedAnswers.clear();
+      activeScreen = 'question-container';
+    });
   }
 
   @override
@@ -70,7 +78,10 @@ class _QuizState extends State<Quiz> {
         );
         break;
       case 'result-container':
-        screenWidget = ResultContainer(chosenAnswers: selectedAnswers,);
+        screenWidget = ResultContainer(
+          chosenAnswers: selectedAnswers,
+          onRestartQuiz: restartQuiz,
+        );
         break;
       default:
         screenWidget = WelcomeContainer(switchScreen);
