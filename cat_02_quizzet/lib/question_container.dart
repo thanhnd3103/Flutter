@@ -1,5 +1,5 @@
-import 'package:cat_02_quizzet/answer_button.dart';
 import 'package:flutter/material.dart';
+import 'package:cat_02_quizzet/answer_button.dart';
 import 'package:cat_02_quizzet/data/question_list.dart';
 
 class QuestionContainer extends StatefulWidget {
@@ -16,26 +16,34 @@ class _QuestionContainerState extends State<QuestionContainer> {
 
     return SizedBox(
       width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            questions[0].text,
-            style: const TextStyle(
-              fontSize: 24,
-              color: Colors.white,
+      child: Container(
+        margin: const EdgeInsets.all(50),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              questions[0].text,
+              style: const TextStyle(
+                fontSize: 24,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 20),
-          for (var i = 0; i < questions[0].answers.length; i++)
-            AnswerButton(
-              answerText: questions[0].answers[i],
-              onTap: () {
-                
-              },
-            ),
-        ],
+            const SizedBox(height: 20),
+            //==========================================================
+            // Using map and spread operator to create a list of AnswerButton widgets
+            //==========================================================
+            // Shuffle change the original list, while map does not
+            //==========================================================
+            ...questionList[0].getShuffledAnswers().map((item) {
+              return AnswerButton(
+                answerText: item,
+                onTap: () {},
+              );
+            }),
+          ],
+        ),
       ),
     );
   }

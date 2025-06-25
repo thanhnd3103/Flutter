@@ -4,4 +4,15 @@ class QuestionModel{
   final String text;
   final List<String> answers;
 
+  //==========================================================
+  // Method to get shuffled answers
+  // Shuffle changes the original list, so we have to create a copy using List.of()
+  // Shuffle does not return a new list, it shuffles the original list in place
+  // We can't return listAbc.shuffele() because it returns void
+  //==========================================================
+  List<String> getShuffledAnswers(){
+    final shuffleList = List.of(answers);
+    shuffleList.shuffle();
+    return shuffleList;
+  }
 }
