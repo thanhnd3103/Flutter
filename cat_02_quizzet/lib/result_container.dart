@@ -1,4 +1,5 @@
 import 'package:cat_02_quizzet/data/question_list.dart';
+import 'package:cat_02_quizzet/question_summary.dart';
 import 'package:flutter/material.dart';
 
 class ResultContainer extends StatelessWidget {
@@ -27,6 +28,12 @@ class ResultContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final summaryData = getSummaryData();
+    final numTotalQuestions = questionList.length;
+    final numCorrectAnswers = summaryData.where((data) {
+      return data['chosen_answer'] == data['correct_answer'];
+    }).length;
+
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -34,9 +41,9 @@ class ResultContainer extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Bốn con mèo nhảy đầm'),
+            const Text('You answered X out of Y questions correctly!'),
             const SizedBox(height: 30),
-            const Text('Hẹ hẹ hẹ'),
+            QuestionSummary(summaryData: summaryData),
             TextButton(
               onPressed: () {},
               child: const Text('Chơi lại nào'),
