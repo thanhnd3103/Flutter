@@ -32,6 +32,10 @@ class Quiz extends StatefulWidget {
 //==========================================================
 
 class _QuizState extends State<Quiz> {
+  //=========================================================
+  // This is fine because list is not reassigned, only added in (modified)
+  //=========================================================
+  final List<String> selectedAnswers = [];
   var activeScreen = 'welcome-container';
 
   void switchScreen() {
@@ -40,12 +44,18 @@ class _QuizState extends State<Quiz> {
     });
   }
 
+  void chooseAnswer(String answer) {
+    selectedAnswers.add(answer);
+  }
+
   @override
   Widget build(context) {
     Widget screenWidget = WelcomeContainer(switchScreen);
 
     if (activeScreen == 'question-container') {
-      screenWidget = const QuestionContainer();
+      screenWidget = QuestionContainer(
+        onSelectAnswer: chooseAnswer,
+      );
     }
 
     return MaterialApp(
