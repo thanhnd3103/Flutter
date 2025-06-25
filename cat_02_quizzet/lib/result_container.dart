@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResultContainer extends StatelessWidget {
-  const ResultContainer({super.key, required this.chosenAnswers, required this.onRestartQuiz});
+  const ResultContainer({
+    super.key,
+    required this.chosenAnswers,
+    required this.onRestartQuiz,
+  });
 
   final List<String> chosenAnswers;
 
@@ -33,9 +37,9 @@ class ResultContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final numTotalQuestions = questionList.length;
-    final numCorrectAnswers = summaryData.where((data) {
-      return data['chosen_answer'] == data['correct_answer'];
-    }).length;
+    final numCorrectAnswers = summaryData
+        .where((data) => data['chosen_answer'] == data['correct_answer'])
+        .length;
 
     return SizedBox(
       width: double.infinity,
@@ -61,7 +65,10 @@ class ResultContainer extends StatelessWidget {
               style: TextButton.styleFrom(
                 backgroundColor: Colors.purple.shade100,
                 foregroundColor: Colors.purple.shade400,
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
                 textStyle: GoogleFonts.montserrat(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
