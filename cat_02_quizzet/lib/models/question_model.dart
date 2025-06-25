@@ -10,6 +10,8 @@ class QuestionModel{
   // Shuffle does not return a new list, it shuffles the original list in place
   // We can't return listAbc.shuffele() because it returns void
   //==========================================================
+  // You CANNOT reassign a final variable
+  //==========================================================
   List<String> getShuffledAnswers(){
     final shuffleList = List.of(answers);
     shuffleList.shuffle();
