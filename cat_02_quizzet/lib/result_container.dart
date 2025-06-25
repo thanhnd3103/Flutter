@@ -1,9 +1,29 @@
+import 'package:cat_02_quizzet/data/question_list.dart';
 import 'package:flutter/material.dart';
 
 class ResultContainer extends StatelessWidget {
   const ResultContainer({super.key, required this.chosenAnswers});
 
   final List<String> chosenAnswers;
+
+  //==========================================================
+  // This should have returned a class that contains the summary data
+  // Map is only used for demonstration purposes
+  //==========================================================
+  List<Map<String, Object>> getSummaryData(){
+    final List<Map<String, Object>> summaryData = [];
+
+    for (var i = 0; i < chosenAnswers.length; i++) {
+      summaryData.add({
+        'question_index': i,
+        'question': questionList[i].text,
+        'correct_answer': questionList[i].answers[0], // Assuming the first answer is always correct
+        'chosen_answer': chosenAnswers[i],
+      });
+    }
+
+    return summaryData;
+  }
 
   @override
   Widget build(BuildContext context) {

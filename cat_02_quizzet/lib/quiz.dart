@@ -91,9 +91,6 @@ class _QuizState extends State<Quiz> {
               end: Alignment.bottomRight,
             ),
           ),
-          //=========================================================
-          //Ternary expression to switch between screens
-          //=========================================================
           child: screenWidget,
         ),
       ),
