@@ -1,5 +1,6 @@
 import 'package:cat_02_quizzet/data/question_list.dart';
 import 'package:cat_02_quizzet/question_container.dart';
+import 'package:cat_02_quizzet/result_container.dart';
 import 'package:cat_02_quizzet/welcome_container.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +52,7 @@ class _QuizState extends State<Quiz> {
     if (selectedAnswers.length == questionList.length){
       setState(() {
         selectedAnswers.clear();
-        activeScreen = 'welcome-container';
+        activeScreen = 'result-container';
       });
     }
   }
@@ -60,10 +61,20 @@ class _QuizState extends State<Quiz> {
   Widget build(context) {
     Widget screenWidget = WelcomeContainer(switchScreen);
 
-    if (activeScreen == 'question-container') {
-      screenWidget = QuestionContainer(
-        onSelectAnswer: chooseAnswer,
-      );
+    switch (activeScreen) {
+      case 'welcome-container':
+        screenWidget = WelcomeContainer(switchScreen);
+        break;
+      case 'question-container':
+        screenWidget = QuestionContainer(
+          onSelectAnswer: chooseAnswer,
+        );
+        break;
+      case 'result-container':
+        screenWidget = ResultContainer(chosenAnswers: selectedAnswers,);
+        break;
+      default:
+        screenWidget = WelcomeContainer(switchScreen);
     }
 
     return MaterialApp(
