@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:cat_02_quizzet/answer_button.dart';
 import 'package:cat_02_quizzet/data/question_list.dart';
 
@@ -37,8 +38,9 @@ class _QuestionContainerState extends State<QuestionContainer> {
           children: [
             Text(
               currentQuestion.text,
-              style: const TextStyle(
+              style: GoogleFonts.montserrat(
                 fontSize: 24,
+                fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
               textAlign: TextAlign.center,
