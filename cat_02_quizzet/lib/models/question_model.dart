@@ -12,7 +12,7 @@ class QuestionModel{
   //==========================================================
   // You CANNOT reassign a final variable
   //==========================================================
-  List<String> getShuffledAnswers(){
+  List<String> get shuffledAnswers {
     final shuffleList = List.of(answers);
     shuffleList.shuffle();
     return shuffleList;

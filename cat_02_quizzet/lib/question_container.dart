@@ -49,12 +49,15 @@ class _QuestionContainerState extends State<QuestionContainer> {
             //==========================================================
             // Shuffle change the original list, while map does not
             //==========================================================
-            ...currentQuestion.getShuffledAnswers().map((item) {
-              return AnswerButton(
-                answerText: item,
-                onTap: () {
-                  nextQuestion(item);
-                },
+            ...currentQuestion.shuffledAnswers.map((item) {
+              return Container(
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                child: AnswerButton(
+                  answerText: item,
+                  onTap: () {
+                    nextQuestion(item);
+                  },
+                ),
               );
             }),
           ],

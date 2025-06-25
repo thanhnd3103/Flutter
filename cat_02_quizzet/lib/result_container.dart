@@ -14,7 +14,7 @@ class ResultContainer extends StatelessWidget {
   // This should have returned a class that contains the summary data
   // Map is only used for demonstration purposes
   //==========================================================
-  List<Map<String, Object>> getSummaryData() {
+  List<Map<String, Object>> get summaryData {
     final List<Map<String, Object>> summaryData = [];
 
     for (var i = 0; i < chosenAnswers.length; i++) {
@@ -32,7 +32,6 @@ class ResultContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final summaryData = getSummaryData();
     final numTotalQuestions = questionList.length;
     final numCorrectAnswers = summaryData.where((data) {
       return data['chosen_answer'] == data['correct_answer'];

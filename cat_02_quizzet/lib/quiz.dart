@@ -57,7 +57,6 @@ class _QuizState extends State<Quiz> {
   }
 
   void restartQuiz() {
-    print("helloworld");
     setState(() {
       selectedAnswers.clear();
       activeScreen = 'question-container';
