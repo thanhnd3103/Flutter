@@ -10,9 +10,22 @@ class QuestionContainer extends StatefulWidget {
 }
 
 class _QuestionContainerState extends State<QuestionContainer> {
+
+  int currentQuestionIndex = 0;
+
   @override
   Widget build(BuildContext context) {
-    final questions = questionList;
+    var currentQuestion = questionList[currentQuestionIndex];
+
+    void nextQuestion() {
+      setState(() {
+        if (currentQuestionIndex < questionList.length - 1) {
+          currentQuestionIndex++;
+        } else {
+          currentQuestionIndex = 0;
+        }
+      });
+    }
 
     return SizedBox(
       width: double.infinity,
@@ -23,7 +36,7 @@ class _QuestionContainerState extends State<QuestionContainer> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              questions[0].text,
+              currentQuestion.text,
               style: const TextStyle(
                 fontSize: 24,
                 color: Colors.white,
@@ -36,10 +49,10 @@ class _QuestionContainerState extends State<QuestionContainer> {
             //==========================================================
             // Shuffle change the original list, while map does not
             //==========================================================
-            ...questionList[0].getShuffledAnswers().map((item) {
+            ...currentQuestion.getShuffledAnswers().map((item) {
               return AnswerButton(
                 answerText: item,
-                onTap: () {},
+                onTap: nextQuestion,
               );
             }),
           ],
