@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:cat_03_expense_tracker/_utils/custom_enum.dart';
 import 'package:uuid/uuid.dart';
 
 const uuid = Uuid();
