@@ -1,6 +1,10 @@
+import 'package:cat_03_expense_tracker/_utils/custom_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+
+final formatter = DateFormat('yyyy/MM/dd');
 
 class AddExpense extends StatefulWidget {
   const AddExpense({super.key});
@@ -19,6 +23,9 @@ class _AddExpenseState extends State<AddExpense> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
 
+  DateTime? _selectedDate;
+  Category _selectedCategory = Category.leisure;
+
   @override
   void dispose() {
     _titleController.dispose();
@@ -29,15 +36,19 @@ class _AddExpenseState extends State<AddExpense> {
     super.dispose();
   }
 
-  void _presentDatePicker() {
+  void _presentDatePicker() async {
     final now = DateTime.now();
     final firstDate = DateTime(now.year - 1, now.month, now.day);
-    showDatePicker(
+    final pickedDate = await showDatePicker(
       context: context,
       initialDate: now,
       firstDate: firstDate,
       lastDate: now,
     );
+
+    setState(() {
+      _selectedDate = pickedDate;
+    });
   }
 
   @override
@@ -76,7 +87,9 @@ class _AddExpenseState extends State<AddExpense> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "Select Date: ",
+                      _selectedDate == null
+                          ? "No Date Chosen"
+                          : formatter.format(_selectedDate!),
                       style: GoogleFonts.montserrat(fontSize: 16),
                     ),
                     IconButton(
@@ -91,6 +104,23 @@ class _AddExpenseState extends State<AddExpense> {
           const SizedBox(height: 10),
           Row(
             children: [
+              DropdownButton(
+                items: Category.values
+                    .map(
+                      (item) => DropdownMenuItem(
+                        value: item,
+                        child: Text(item.name.toUpperCase(), style: GoogleFonts.montserrat(fontWeight: FontWeight.bold)),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (value) {
+                  if (value == null) return;
+
+                  setState(() {
+                    _selectedCategory = value;
+                  });
+                },
+              ),
               const Spacer(),
               TextButton.icon(
                 onPressed: () {
