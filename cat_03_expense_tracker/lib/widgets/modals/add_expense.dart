@@ -101,10 +101,11 @@ class _AddExpenseState extends State<AddExpense> {
               ),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 16),
           Row(
             children: [
               DropdownButton(
+                value: _selectedCategory,
                 items: Category.values
                     .map(
                       (item) => DropdownMenuItem(
