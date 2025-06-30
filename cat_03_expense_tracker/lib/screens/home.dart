@@ -1,6 +1,7 @@
 import 'package:cat_03_expense_tracker/_models/expense.dart';
 import 'package:cat_03_expense_tracker/_utils/custom_enum.dart';
 import 'package:cat_03_expense_tracker/widgets/home/expense_list.dart';
+import 'package:cat_03_expense_tracker/widgets/modals/add_expense.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -27,6 +28,13 @@ class _HomeState extends State<Home> {
     ),
   ];
 
+  void _openAddExpenseModel() {
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) => const AddExpense(),
+    );
+  }
+
   @override
   Widget build(context) {
     return Scaffold(
@@ -40,7 +48,7 @@ class _HomeState extends State<Home> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: _openAddExpenseModel,
             icon: const Icon(Icons.add),
           ),
         ],
