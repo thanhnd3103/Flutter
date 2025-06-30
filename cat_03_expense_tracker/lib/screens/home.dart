@@ -31,8 +31,16 @@ class _HomeState extends State<Home> {
   void _openAddExpenseModel() {
     showModalBottomSheet(
       context: context,
-      builder: (ctx) => const AddExpense(),
+      builder: (ctx) => AddExpense(
+        onAddExpense: _addExpense,
+      ),
     );
+  }
+
+  void _addExpense(Expense expense) {
+    setState(() {
+      expenses.add(expense);
+    });
   }
 
   @override
@@ -56,7 +64,11 @@ class _HomeState extends State<Home> {
       body: Column(
         children: [
           const Text("Chart"),
-          Expanded(child: ExpenseList(expenses: expenses)),
+          Expanded(
+            child: ExpenseList(
+              expenses: expenses,
+            ),
+          ),
         ],
       ),
     );

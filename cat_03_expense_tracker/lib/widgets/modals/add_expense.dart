@@ -1,3 +1,4 @@
+import 'package:cat_03_expense_tracker/_models/expense.dart';
 import 'package:cat_03_expense_tracker/_utils/custom_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -7,7 +8,8 @@ import 'package:intl/intl.dart';
 final formatter = DateFormat('yyyy/MM/dd');
 
 class AddExpense extends StatefulWidget {
-  const AddExpense({super.key});
+  const AddExpense({super.key, required this.onAddExpense});
+  final void Function(Expense expense) onAddExpense;
 
   @override
   State<AddExpense> createState() {
@@ -72,6 +74,15 @@ class _AddExpenseState extends State<AddExpense> {
       );
       return;
     }
+
+    widget.onAddExpense(
+      Expense(
+        title: _titleController.text,
+        amount: enteredAmount,
+        date: _selectedDate!,
+        category: _selectedCategory,
+      ),
+    );
   }
 
   void _presentDatePicker() async {
