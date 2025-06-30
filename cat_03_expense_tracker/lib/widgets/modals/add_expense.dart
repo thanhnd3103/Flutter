@@ -36,6 +36,44 @@ class _AddExpenseState extends State<AddExpense> {
     super.dispose();
   }
 
+  void _submitExpenseData() {
+    final enteredAmount = double.tryParse(_amountController.text);
+
+    final isValidAmount = enteredAmount != null && enteredAmount > 0;
+
+    if (_titleController.text.trim().isEmpty ||
+        !isValidAmount ||
+        _selectedDate == null) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text(
+            "Invalid Input",
+            style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content: Text(
+            "Please enter valid title, amount and date.",
+            style: GoogleFonts.montserrat(),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: Text(
+                "Okay",
+                style: GoogleFonts.montserrat(),
+              ),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+  }
+
   void _presentDatePicker() async {
     final now = DateTime.now();
     final firstDate = DateTime(now.year - 1, now.month, now.day);
@@ -110,7 +148,12 @@ class _AddExpenseState extends State<AddExpense> {
                     .map(
                       (item) => DropdownMenuItem(
                         value: item,
-                        child: Text(item.name.toUpperCase(), style: GoogleFonts.montserrat(fontWeight: FontWeight.bold)),
+                        child: Text(
+                          item.name.toUpperCase(),
+                          style: GoogleFonts.montserrat(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     )
                     .toList(),
@@ -143,7 +186,7 @@ class _AddExpenseState extends State<AddExpense> {
               ),
               const SizedBox(width: 10),
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: _submitExpenseData,
                 label: const Text("Save"),
                 icon: const Icon(Icons.save_as),
                 style: TextButton.styleFrom(
