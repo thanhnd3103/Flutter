@@ -1,5 +1,6 @@
 import 'package:cat_03_expense_tracker/_models/expense.dart';
 import 'package:cat_03_expense_tracker/_utils/custom_enum.dart';
+import 'package:cat_03_expense_tracker/widgets/home/expense_list.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -27,11 +28,11 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(context) {
-    return const Scaffold(
+    return Scaffold(
       body: Column(
         children: [
-          Text("Chart"),
-          Text("Expense list"),
+          const Text("Chart"),
+          Expanded(child: ExpenseList(expenses: expenses))
         ],
       ),
     );
