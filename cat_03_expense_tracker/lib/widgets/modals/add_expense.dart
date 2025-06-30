@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddExpense extends StatefulWidget {
@@ -28,6 +29,17 @@ class _AddExpenseState extends State<AddExpense> {
     super.dispose();
   }
 
+  void _presentDatePicker() {
+    final now = DateTime.now();
+    final firstDate = DateTime(now.year - 1, now.month, now.day);
+    showDatePicker(
+      context: context,
+      initialDate: now,
+      firstDate: firstDate,
+      lastDate: now,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -37,26 +49,53 @@ class _AddExpenseState extends State<AddExpense> {
           TextField(
             controller: _titleController,
             maxLength: 50,
-            decoration: const InputDecoration(
-              label: Text("Title"),
-              border: OutlineInputBorder(),
+            decoration: InputDecoration(
+              label: Text("Title", style: GoogleFonts.montserrat()),
+              border: const OutlineInputBorder(),
             ),
           ),
-          TextField(
-            controller: _amountController,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              label: Text("Amount"),
-              prefixText: '\$',
-              border: OutlineInputBorder(),
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _amountController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    label: Text("Amount", style: GoogleFonts.montserrat()),
+                    prefixText: '\$',
+                    border: const OutlineInputBorder(),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Select Date: ",
+                      style: GoogleFonts.montserrat(fontSize: 16),
+                    ),
+                    IconButton(
+                      onPressed: _presentDatePicker,
+                      icon: const Icon(Icons.calendar_month),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 10),
           Row(
             children: [
               const Spacer(),
               TextButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 label: const Text("Cancel"),
                 icon: const Icon(Icons.cancel),
                 style: TextButton.styleFrom(
@@ -73,9 +112,7 @@ class _AddExpenseState extends State<AddExpense> {
               ),
               const SizedBox(width: 10),
               ElevatedButton.icon(
-                onPressed: () {
-                  
-                },
+                onPressed: () {},
                 label: const Text("Save"),
                 icon: const Icon(Icons.save_as),
                 style: TextButton.styleFrom(
