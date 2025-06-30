@@ -2,6 +2,7 @@ import 'package:cat_03_expense_tracker/_models/expense.dart';
 import 'package:cat_03_expense_tracker/_utils/custom_enum.dart';
 import 'package:cat_03_expense_tracker/widgets/home/expense_list.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -29,10 +30,25 @@ class _HomeState extends State<Home> {
   @override
   Widget build(context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Expense Tracker",
+          style: GoogleFonts.montserrat(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.add),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           const Text("Chart"),
-          Expanded(child: ExpenseList(expenses: expenses))
+          Expanded(child: ExpenseList(expenses: expenses)),
         ],
       ),
     );

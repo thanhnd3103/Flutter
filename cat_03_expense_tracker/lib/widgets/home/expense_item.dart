@@ -1,4 +1,5 @@
 import 'package:cat_03_expense_tracker/_models/expense.dart';
+import 'package:cat_03_expense_tracker/_utils/custom_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -34,13 +35,19 @@ class ExpenseItem extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                Text(
-                  "${expense.date.day}/${expense.date.month}/${expense.date.year}",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 16.0,
-                    color: Colors.grey,
-                    fontStyle: FontStyle.italic,
-                  ),
+                Row(
+                  children: [
+                    Icon(categoryIcons[expense.category] as IconData),
+                    const SizedBox(width: 8.0),
+                    Text(
+                      expense.formattedDate,
+                      style: GoogleFonts.montserrat(
+                        fontSize: 16.0,
+                        color: Colors.grey,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
