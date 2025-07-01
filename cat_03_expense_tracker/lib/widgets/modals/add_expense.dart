@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cat_03_expense_tracker/_models/expense.dart';
 import 'package:cat_03_expense_tracker/_utils/custom_enum.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -46,32 +49,62 @@ class _AddExpenseState extends State<AddExpense> {
     if (_titleController.text.trim().isEmpty ||
         !isValidAmount ||
         _selectedDate == null) {
-      showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          title: Text(
-            "Invalid Input",
-            style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          content: Text(
-            "Please enter valid title, amount and date.",
-            style: GoogleFonts.montserrat(),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(ctx);
-              },
-              child: Text(
-                "Okay",
-                style: GoogleFonts.montserrat(),
+      if (Platform.isIOS) {
+        showCupertinoDialog(
+          context: context,
+          builder: (ctx) => CupertinoAlertDialog(
+            title: Text(
+              "Invalid Input",
+              style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ],
-        ),
-      );
+            content: Text(
+              "Please enter valid title, amount and date.",
+              style: GoogleFonts.montserrat(),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(ctx);
+                },
+                child: Text(
+                  "Okay",
+                  style: GoogleFonts.montserrat(),
+                ),
+              ),
+            ],
+          ),
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text(
+              "Invalid Input",
+              style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            content: Text(
+              "Please enter valid title, amount and date.",
+              style: GoogleFonts.montserrat(),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(ctx);
+                },
+                child: Text(
+                  "Okay",
+                  style: GoogleFonts.montserrat(),
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+
       return;
     }
 
@@ -133,21 +166,23 @@ class _AddExpenseState extends State<AddExpense> {
                             ),
                           ),
                         ),
-                        const SizedBox(width: 20,),
+                        const SizedBox(
+                          width: 20,
+                        ),
                         Expanded(
-                        child: TextField(
-                          controller: _amountController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            label: Text(
-                              "Amount",
-                              style: GoogleFonts.montserrat(),
+                          child: TextField(
+                            controller: _amountController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              label: Text(
+                                "Amount",
+                                style: GoogleFonts.montserrat(),
+                              ),
+                              prefixText: '\$',
+                              border: const OutlineInputBorder(),
                             ),
-                            prefixText: '\$',
-                            border: const OutlineInputBorder(),
                           ),
                         ),
-                      ),
                       ],
                     )
                   else
