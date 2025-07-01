@@ -1,5 +1,6 @@
 import 'package:cat_03_expense_tracker/_models/expense.dart';
 import 'package:cat_03_expense_tracker/_utils/custom_enum.dart';
+import 'package:cat_03_expense_tracker/widgets/chart/chart.dart';
 import 'package:cat_03_expense_tracker/widgets/home/expense_list.dart';
 import 'package:cat_03_expense_tracker/widgets/modals/add_expense.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +81,7 @@ class _HomeState extends State<Home> {
       ),
       body: Column(
         children: [
-          const Text("Chart"),
+          Chart(expenses: expenses),
           expenses.isEmpty
               ? const Center(
                   child: Text('No expense found. Start adding some!'),
