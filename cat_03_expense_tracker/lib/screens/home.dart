@@ -44,10 +44,24 @@ class _HomeState extends State<Home> {
     });
   }
 
-  void _removeExpense(Expense expense){
+  void _removeExpense(Expense expense) {
+    final expenseIndex = expenses.indexOf(expense);
     setState(() {
       expenses.remove(expense);
     });
+    //clear any snack bar that still exist
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 3),
+        content: const Text("mew"),
+        action: SnackBarAction(label: 'Undo', onPressed: () {
+          setState(() {
+            expenses.insert(expenseIndex, expense);
+          });
+        }),
+      ),
+    );
   }
 
   @override
@@ -71,12 +85,16 @@ class _HomeState extends State<Home> {
       body: Column(
         children: [
           const Text("Chart"),
-          Expanded(
-            child: ExpenseList(
-              expenses: expenses,
-              onRemoveExpense: _removeExpense,
-            ),
-          ),
+          expenses.isEmpty
+              ? const Center(
+                  child: Text('No expense found. Start adding some!'),
+                )
+              : Expanded(
+                  child: ExpenseList(
+                    expenses: expenses,
+                    onRemoveExpense: _removeExpense,
+                  ),
+                ),
         ],
       ),
     );
