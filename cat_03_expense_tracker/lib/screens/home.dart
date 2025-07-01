@@ -67,6 +67,33 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(context) {
+    var isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+
+    var mainContent = [
+      //==================================
+      //Expanded constraints the child to only take as much 
+      //width as available in the Row **AFTER** sizing the other Row children
+      //==================================
+      //Since Chart has width double.infinity (check it urself lul), if not wrapped
+      //with Expanded, an exception will occur
+      //==================================
+      Expanded(
+        child: Chart(expenses: expenses),
+      ),
+      expenses.isEmpty
+          ? const Center(
+              child: Text('No expense found. Start adding some!'),
+            )
+          : Expanded(
+              child: ExpenseList(
+                expenses: expenses,
+                onRemoveExpense: _removeExpense,
+              ),
+            ),
+    ];
+
+    //final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -79,21 +106,13 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Chart(expenses: expenses),
-          expenses.isEmpty
-              ? const Center(
-                  child: Text('No expense found. Start adding some!'),
-                )
-              : Expanded(
-                  child: ExpenseList(
-                    expenses: expenses,
-                    onRemoveExpense: _removeExpense,
-                  ),
-                ),
-        ],
-      ),
+      body: isLandscape
+          ? Row(
+              children: mainContent,
+            )
+          : Column(
+              children: mainContent,
+            ),
     );
   }
 }
