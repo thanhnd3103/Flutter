@@ -186,8 +186,7 @@ class _AddExpenseState extends State<AddExpense> {
                 label: const Text("Cancel"),
                 icon: const Icon(Icons.cancel),
                 style: TextButton.styleFrom(
-                  backgroundColor: Colors.green.shade100,
-                  foregroundColor: Colors.green.shade900,
+                  
                   padding: const EdgeInsets.symmetric(
                     horizontal: 20,
                     vertical: 10,
@@ -203,8 +202,7 @@ class _AddExpenseState extends State<AddExpense> {
                 label: const Text("Save"),
                 icon: const Icon(Icons.save_as),
                 style: TextButton.styleFrom(
-                  backgroundColor: Colors.green.shade900,
-                  foregroundColor: Colors.green.shade50,
+                  
                   padding: const EdgeInsets.symmetric(
                     horizontal: 20,
                     vertical: 10,
