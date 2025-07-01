@@ -17,12 +17,11 @@ class ExpenseItem extends StatelessWidget {
           horizontal: 20.0,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               expense.title,
-              style: GoogleFonts.montserrat(
-                fontSize: 15.0,
-              ),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 8.0),
             Row(

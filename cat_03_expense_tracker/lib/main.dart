@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 //prefix k is for global variable
 var kColorScheme = ColorScheme.fromSeed(
-  seedColor: Colors.pink,
+  seedColor: Colors.blue.shade300,
 );
 
 void main() {
@@ -29,7 +29,7 @@ void main() {
         ),
         textTheme: ThemeData().textTheme.copyWith(
           titleLarge: TextStyle(
-            fontWeight: FontWeight.normal,
+            fontWeight: FontWeight.bold,
             color: kColorScheme.onSecondaryContainer,
             fontSize: 16,
           )
