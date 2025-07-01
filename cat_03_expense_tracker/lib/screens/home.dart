@@ -68,12 +68,8 @@ class _HomeState extends State<Home> {
   Widget build(context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Expense Tracker",
-          style: GoogleFonts.montserrat(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),
         ),
         actions: [
           IconButton(
