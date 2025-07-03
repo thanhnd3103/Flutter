@@ -1,9 +1,9 @@
+import 'package:cat_05_mew_meal/_data/template_data.dart';
+import 'package:cat_05_mew_meal/widgets/categories_screen/category_grid_item.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesScreen extends StatelessWidget{
-  CategoriesScreen({super.key});
-
-  var testList = [1, 2, 3, 4, 5];
+  const CategoriesScreen({super.key});
 
   @override 
   Widget build(BuildContext context) {
@@ -12,26 +12,16 @@ class CategoriesScreen extends StatelessWidget{
         title: const Text("Category Menu Mew Mew"),
       ),
       body: GridView.builder(
+        padding: const EdgeInsets.all(16),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
+          crossAxisCount: 2,
           crossAxisSpacing: 20,
           mainAxisSpacing: 20,
           childAspectRatio: 1.5,
         ),
-        itemCount: testList.length,
+        itemCount: availableCategories.length,
         itemBuilder: (ctx, index) {
-          final item = testList[index];
-          return Container(
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: Colors.purple[100],
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(
-              "Item $item",
-              style: const TextStyle(fontSize: 16),
-            ),
-          );
+          return CategoryGridItem(category: availableCategories[index]);
         },
       ),
     );  
