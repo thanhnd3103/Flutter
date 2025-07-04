@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 
 class CategoryGridItem extends StatelessWidget{
 
-  const CategoryGridItem({super.key, required Category category}) : _category = category;
+  const CategoryGridItem({super.key, required Category category, required this.onSelectCategory}) : _category = category;
 
   final Category _category;
+
+  final void Function() onSelectCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +15,7 @@ class CategoryGridItem extends StatelessWidget{
     //Inkwell adds a nice effect on the tappable object, while GestureDetector does not
     //========================================
     return InkWell(
-      onTap: () {
-        
-      },
+      onTap: onSelectCategory,
       borderRadius: BorderRadius.circular(16),
       child: Container(
         padding: const EdgeInsets.all(16),
