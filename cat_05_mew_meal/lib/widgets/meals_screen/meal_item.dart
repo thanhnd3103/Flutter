@@ -1,10 +1,19 @@
 import 'package:cat_05_mew_meal/_models/meal.dart';
+import 'package:cat_05_mew_meal/_utils/string_utils.dart';
+import 'package:cat_05_mew_meal/screens/meal_detail_screen.dart';
+import 'package:cat_05_mew_meal/widgets/meals_screen/meal_item_trait.dart';
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MealItem extends StatelessWidget {
   const MealItem({super.key, required this.meal});
   final Meal meal;
+
+  void _selectMeal(BuildContext context, Meal meal) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (ctx) => MealDetailScreen(meal: meal)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +28,9 @@ class MealItem extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       elevation: 2,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          _selectMeal(context, meal);
+        },
         //==========================================
         //Stack ignores shape property set on Card, so we have to add clipBehavior here
         //For it to easily understand, imagine the shape of the Card and the Image clipping behavior
@@ -30,6 +41,9 @@ class MealItem extends StatelessWidget {
             FadeInImage(
               placeholder: MemoryImage(kTransparentImage),
               image: NetworkImage(meal.imageUrl),
+              fit: BoxFit.cover,
+              height: 200,
+              width: double.infinity,
             ),
             Positioned(
               //TODO: Remember to play around with those things
@@ -38,8 +52,12 @@ class MealItem extends StatelessWidget {
               right: 0,
               child: Container(
                 color: Colors.black54,
-                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 44),
-                child: Column(children: [
+                padding: const EdgeInsets.symmetric(
+                  vertical: 6,
+                  horizontal: 44,
+                ),
+                child: Column(
+                  children: [
                     Text(
                       meal.title,
                       maxLines: 2,
@@ -52,10 +70,36 @@ class MealItem extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                  const SizedBox(height: 12,)
-                ],),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        MealItemTrait(
+                          icon: Icons.schedule,
+                          label: '${meal.duration} minutes',
+                        ),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        MealItemTrait(
+                          icon: Icons.work,
+                          label: meal.complexity.name.toUpperCaseFirstChar(),
+                        ),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        MealItemTrait(
+                          icon: Icons.attach_money,
+                          label: meal.affordability.name.toUpperCaseFirstChar(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),
