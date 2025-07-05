@@ -1,25 +1,19 @@
 import 'package:cat_05_mew_meal/_models/meal.dart';
 import 'package:cat_05_mew_meal/_utils/string_utils.dart';
-import 'package:cat_05_mew_meal/screens/meal_detail_screen.dart';
 import 'package:cat_05_mew_meal/widgets/meals_screen/meal_item_trait.dart';
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MealItem extends StatelessWidget {
-  const MealItem({super.key, required this.meal});
+  const MealItem({super.key, required this.meal, required this.onSelectMeal});
   final Meal meal;
-
-  void _selectMeal(BuildContext context, Meal meal) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (ctx) => MealDetailScreen(meal: meal)),
-    );
-  }
+  final void Function(Meal meal) onSelectMeal;
 
   @override
   Widget build(BuildContext context) {
     //==========================================
     //Stack is similar Column, but not y axis but actually z axis
-    //==========================================
+    //========================================= =
     return Card(
       margin: const EdgeInsets.all(8),
       shape: RoundedRectangleBorder(
@@ -29,7 +23,7 @@ class MealItem extends StatelessWidget {
       elevation: 2,
       child: InkWell(
         onTap: () {
-          _selectMeal(context, meal);
+          onSelectMeal(meal);
         },
         //==========================================
         //Stack ignores shape property set on Card, so we have to add clipBehavior here
@@ -46,7 +40,6 @@ class MealItem extends StatelessWidget {
               width: double.infinity,
             ),
             Positioned(
-              //TODO: Remember to play around with those things
               bottom: 0,
               left: 0,
               right: 0,
