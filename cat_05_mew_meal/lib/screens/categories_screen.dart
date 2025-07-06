@@ -1,11 +1,14 @@
 import 'package:cat_05_mew_meal/_data/template_data.dart';
 import 'package:cat_05_mew_meal/_models/category.dart';
+import 'package:cat_05_mew_meal/_models/meal.dart';
 import 'package:cat_05_mew_meal/screens/meals_screen.dart';
 import 'package:cat_05_mew_meal/widgets/categories_screen/category_grid_item.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key});
+  const CategoriesScreen({super.key, required this.onToggleFavorite});
+
+  final void Function(Meal meal) onToggleFavorite;
 
   void _selectCategory(BuildContext context, Category category) {
     Navigator.of(context).push(
@@ -17,6 +20,7 @@ class CategoriesScreen extends StatelessWidget {
                 (element) => element.categories.contains(category.id),
               )
               .toList(),
+          onToggleFavorite: onToggleFavorite,
         ),
       ),
     );
