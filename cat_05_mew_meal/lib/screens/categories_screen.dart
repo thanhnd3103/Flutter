@@ -6,16 +6,18 @@ import 'package:cat_05_mew_meal/widgets/categories_screen/category_grid_item.dar
 import 'package:flutter/material.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key, required this.onToggleFavorite});
+  const CategoriesScreen({super.key, required this.onToggleFavorite, required this.availableMeals});
 
   final void Function(Meal meal) onToggleFavorite;
+
+  final List<Meal> availableMeals;
 
   void _selectCategory(BuildContext context, Category category) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => MealsScreen(
           title: "MewMew",
-          mealList: dummyMeals
+          mealList: availableMeals
               .where(
                 (element) => element.categories.contains(category.id),
               )

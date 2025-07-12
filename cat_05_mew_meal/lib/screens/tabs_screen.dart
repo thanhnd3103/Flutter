@@ -1,3 +1,4 @@
+import 'package:cat_05_mew_meal/_data/template_data.dart';
 import 'package:cat_05_mew_meal/_models/meal.dart';
 import 'package:cat_05_mew_meal/_utils/enums.dart';
 import 'package:cat_05_mew_meal/screens/categories_screen.dart';
@@ -72,9 +73,31 @@ class _TabScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final availableMeals = dummyMeals.where((item) {
+      if (_selectedFilter[Filter.glutenFree]! && !item.isGlutenFree){
+        return false;
+      }
+
+      if (_selectedFilter[Filter.lactoseFree]! && !item.isLactoseFree){
+        return false;
+      }
+
+      if (_selectedFilter[Filter.vegetarian]! && !item.isVegetarian){
+        return false;
+      }
+
+      if (_selectedFilter[Filter.vegan]! && !item.isVegan){
+        return false;
+      }
+
+      return true;
+    }).toList();
+
     Widget activePage = CategoriesScreen(
       onToggleFavorite: _toggleMealFavoriteStatus,
+      availableMeals: availableMeals,
     );
+
     var activePageTitle = 'Categories';
 
     if (_selectedPageIndex == 1) {
