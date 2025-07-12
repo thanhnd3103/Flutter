@@ -1,9 +1,17 @@
 import 'package:cat_05_mew_meal/_models/meal.dart';
+import 'package:cat_05_mew_meal/_utils/enums.dart';
 import 'package:cat_05_mew_meal/screens/categories_screen.dart';
 import 'package:cat_05_mew_meal/screens/filter_screen.dart';
 import 'package:cat_05_mew_meal/screens/meals_screen.dart';
 import 'package:cat_05_mew_meal/widgets/tabs_screen/main_drawer.dart';
 import 'package:flutter/material.dart';
+
+const kInitialFilter = {
+    Filter.glutenFree: false,
+    Filter.lactoseFree: false,
+    Filter.vegetarian: false,
+    Filter.vegan: false,
+  };
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -16,6 +24,8 @@ class _TabScreenState extends State<TabsScreen> {
   int _selectedPageIndex = 0;
 
   final List<Meal> _favoriteMeals = [];
+
+  Map<Filter, bool> _selectedFilter = kInitialFilter;
 
   void _showInfoMessage(String message) {
     ScaffoldMessenger.of(context).clearSnackBars();
@@ -44,15 +54,19 @@ class _TabScreenState extends State<TabsScreen> {
     });
   }
 
-  void _setScreen(String identifier) {
+  void _setScreen(String identifier) async {
     Navigator.of(context).pop();
 
     if (identifier == 'filters') {
-      Navigator.of(context).push(
+      final result = await Navigator.of(context).push<Map<Filter, bool>>(
         MaterialPageRoute(
           builder: (ctx) => const FilterScreen(),
         ),
       );
+
+      setState(() {
+        _selectedFilter = result ?? kInitialFilter;
+      });
     }
   }
 
