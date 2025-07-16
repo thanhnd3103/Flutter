@@ -1,6 +1,7 @@
 import 'package:cat_05_mew_meal/_data/template_data.dart';
 import 'package:cat_05_mew_meal/_models/meal.dart';
 import 'package:cat_05_mew_meal/_utils/enums.dart';
+import 'package:cat_05_mew_meal/providers/favorites_provider.dart';
 import 'package:cat_05_mew_meal/providers/meals_provider.dart';
 import 'package:cat_05_mew_meal/screens/categories_screen.dart';
 import 'package:cat_05_mew_meal/screens/filter_screen.dart';
@@ -26,30 +27,7 @@ class TabsScreen extends ConsumerStatefulWidget {
 class _TabScreenState extends ConsumerState<TabsScreen> {
   int _selectedPageIndex = 0;
 
-  final List<Meal> _favoriteMeals = [];
-
   Map<Filter, bool> _selectedFilter = kInitialFilter;
-
-  void _showInfoMessage(String message) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-      ),
-    );
-  }
-
-  void _toggleMealFavoriteStatus(Meal meal) {
-    setState(() {
-      if (_favoriteMeals.contains(meal)) {
-        _favoriteMeals.remove(meal);
-        _showInfoMessage("Cats don't like this mew.");
-      } else {
-        _favoriteMeals.add(meal);
-        _showInfoMessage("Cats do like this mew.");
-      }
-    });
-  }
 
   void _selectPage(int index) {
     setState(() {
@@ -100,16 +78,15 @@ class _TabScreenState extends ConsumerState<TabsScreen> {
     }).toList();
 
     Widget activePage = CategoriesScreen(
-      onToggleFavorite: _toggleMealFavoriteStatus,
       availableMeals: availableMeals,
     );
 
     var activePageTitle = 'Categories';
 
     if (_selectedPageIndex == 1) {
+      final favoriteMeals = ref.watch(favoriteMealsProvder);
       activePage = MealsScreen(
-        mealList: _favoriteMeals,
-        onToggleFavorite: _toggleMealFavoriteStatus,
+        mealList: favoriteMeals,
       );
       activePageTitle = 'Your Favorites';
     }

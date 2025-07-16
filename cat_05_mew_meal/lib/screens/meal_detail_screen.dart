@@ -1,21 +1,31 @@
 import 'package:cat_05_mew_meal/_models/meal.dart';
+import 'package:cat_05_mew_meal/providers/favorites_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MealDetailScreen extends StatelessWidget {
-  const MealDetailScreen({super.key, required this.meal, required this.onToggleFavorite});
+class MealDetailScreen extends ConsumerWidget {
+  const MealDetailScreen({super.key, required this.meal});
 
   final Meal meal;
-  final void Function(Meal meal) onToggleFavorite;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
         actions: [
           IconButton(
             onPressed: () {
-              onToggleFavorite(meal);
+              //==========================
+              //Cannot use watch() inside a method
+              //==========================
+              final isAdded = ref.read(favoriteMealsProvder.notifier).toggleMealFavoriteStatus(meal);
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(isAdded ? "Added favorite meal for cat" : "Cat does not like this meal"),
+                ),
+              );
             },
             icon: const Icon(Icons.star),
           )
