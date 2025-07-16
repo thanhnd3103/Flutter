@@ -1,20 +1,12 @@
 import 'package:cat_05_mew_meal/_utils/enums.dart';
 import 'package:cat_05_mew_meal/providers/favorites_provider.dart';
 import 'package:cat_05_mew_meal/providers/filter_provider.dart';
-import 'package:cat_05_mew_meal/providers/meals_provider.dart';
 import 'package:cat_05_mew_meal/screens/categories_screen.dart';
 import 'package:cat_05_mew_meal/screens/filter_screen.dart';
 import 'package:cat_05_mew_meal/screens/meals_screen.dart';
 import 'package:cat_05_mew_meal/widgets/tabs_screen/main_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-const kInitialFilter = {
-    Filter.glutenFree: false,
-    Filter.lactoseFree: false,
-    Filter.vegetarian: false,
-    Filter.vegan: false,
-  };
 
 class TabsScreen extends ConsumerStatefulWidget {
   const TabsScreen({super.key});
@@ -46,29 +38,7 @@ class _TabScreenState extends ConsumerState<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final meals = ref.watch(mealsProvider);
-
-    final activeFilters = ref.watch(filtersProvider);
-
-    final availableMeals = meals.where((item) {
-      if (activeFilters[Filter.glutenFree]! && !item.isGlutenFree){
-        return false;
-      }
-
-      if (activeFilters[Filter.lactoseFree]! && !item.isLactoseFree){
-        return false;
-      }
-
-      if (activeFilters[Filter.vegetarian]! && !item.isVegetarian){
-        return false;
-      }
-
-      if (activeFilters[Filter.vegan]! && !item.isVegan){
-        return false;
-      }
-
-      return true;
-    }).toList();
+    final availableMeals = ref.watch(filteredMealsProvider);
 
     Widget activePage = CategoriesScreen(
       availableMeals: availableMeals,
