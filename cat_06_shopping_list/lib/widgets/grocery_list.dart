@@ -1,4 +1,5 @@
 import 'package:cat_06_shopping_list/_data/template_data.dart';
+import 'package:cat_06_shopping_list/_models/grocery_item.dart';
 import 'package:cat_06_shopping_list/widgets/new_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,12 +12,21 @@ class GroceryList extends ConsumerStatefulWidget {
 }
 
 class _GroceryListState extends ConsumerState<GroceryList> {
-  void _addItem() {
-    Navigator.of(context).push(
+  final List<GroceryItem> _groceryItems = dummyGroceryItems;
+  void _addItem() async {
+    var newItem = await Navigator.of(context).push<GroceryItem>(
       MaterialPageRoute(
         builder: (ctx) => const NewItem(),
       ),
     );
+
+    if (newItem == null){
+      return;
+    }
+
+    setState(() {
+      _groceryItems.add(newItem);
+    });
   }
 
   @override
@@ -32,17 +42,25 @@ class _GroceryListState extends ConsumerState<GroceryList> {
         ],
       ),
       body: ListView.builder(
-        itemCount: dummyGroceryItems.length,
+        itemCount: _groceryItems.length,
         itemBuilder: (ctx, index) {
-          return ListTile(
-            leading: Container(
-              width: 24,
-              height: 24,
-              color: dummyGroceryItems[index].category.color,
-            ),
-            title: Text(dummyGroceryItems[index].name),
-            trailing: Text(
-              dummyGroceryItems[index].quantity.toString(),
+          return Dismissible(
+            onDismissed: (direction) => {
+              setState(() {
+                _groceryItems.remove(_groceryItems[index]);
+              })
+            },
+            key: ValueKey(_groceryItems[index].id),
+            child: ListTile(
+              leading: Container(
+                width: 24,
+                height: 24,
+                color: _groceryItems[index].category.color,
+              ),
+              title: Text(_groceryItems[index].name),
+              trailing: Text(
+                _groceryItems[index].quantity.toString(),
+              ),
             ),
           );
         },
