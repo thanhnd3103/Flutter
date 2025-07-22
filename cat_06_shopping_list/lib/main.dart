@@ -1,3 +1,4 @@
+import 'package:cat_06_shopping_list/widgets/grocery_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,7 +24,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: ,
+      home: const GroceryList(),
     );
   }
 }
