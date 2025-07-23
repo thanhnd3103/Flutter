@@ -23,7 +23,7 @@ class _NewItemState extends ConsumerState<NewItem> {
   var _enterQuantity = 1;
   var _selectedCategory = dummyCategories[Categories.vegetables]!;
 
-  void _saveItem() {
+  void _saveItem() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       final url = Uri.https(
@@ -31,7 +31,7 @@ class _NewItemState extends ConsumerState<NewItem> {
         'shopping-list.json',
       );
 
-      http.post(
+      final response = await http.post(
         url,
         headers: {
           'Content-Type': 'application/json',
@@ -43,14 +43,13 @@ class _NewItemState extends ConsumerState<NewItem> {
         }),
       );
 
-      // Navigator.of(context).pop(
-      //   GroceryItem(
-      //     id: DateTime.now().toString(),
-      //     name: _enteredName,
-      //     quantity: _enterQuantity,
-      //     category: _selectedCategory,
-      //   ),
-      // );
+      //==================================================================
+      //context may not be the same between async gap, therefore we have to check for context.mounted to ensure that the context is still mount (attach) to this UI
+      //==================================================================
+
+      if (context.mounted){
+        Navigator.of(context).pop();
+      }
     }
   }
 
