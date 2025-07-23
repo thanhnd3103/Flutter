@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:cat_06_shopping_list/_data/template_data.dart';
 import 'package:cat_06_shopping_list/_models/grocery_item.dart';
 import 'package:cat_06_shopping_list/_utils/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
 
 class NewItem extends ConsumerStatefulWidget {
   const NewItem({super.key});
@@ -23,14 +26,31 @@ class _NewItemState extends ConsumerState<NewItem> {
   void _saveItem() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      Navigator.of(context).pop(
-        GroceryItem(
-          id: DateTime.now().toString(),
-          name: _enteredName,
-          quantity: _enterQuantity,
-          category: _selectedCategory,
-        ),
+      final url = Uri.https(
+        'flutter-tutorial-464d2-default-rtdb.asia-southeast1.firebasedatabase.app',
+        'shopping-list.json',
       );
+
+      http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({
+          'name': _enteredName,
+          'quantity': _enterQuantity,
+          'category': _selectedCategory.name,
+        }),
+      );
+
+      // Navigator.of(context).pop(
+      //   GroceryItem(
+      //     id: DateTime.now().toString(),
+      //     name: _enteredName,
+      //     quantity: _enterQuantity,
+      //     category: _selectedCategory,
+      //   ),
+      // );
     }
   }
 
